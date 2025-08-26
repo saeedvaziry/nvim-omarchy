@@ -4,3 +4,4 @@
 -- vim.opt.relativenumber = false
 vim.g.lazyvim_php_lsp = "intelephense"
 vim.g.lazyvim_prettier_needs_config = false
+-- vim.opt.guicursor = ""

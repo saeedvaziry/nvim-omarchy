@@ -3,6 +3,7 @@ return {
     "nvim-neo-tree/neo-tree.nvim",
     opts = {
       window = {
+        position = "float",
         width = 33,
         show_filter = false, -- hides the top search/filter bar
         mappings = {
@@ -13,7 +14,7 @@ return {
       filesystem = {
         follow_current_file = {
           enabled = true, -- enables following the current file in the tree
-          leave_dirs_open = false, -- keeps parent directories open when following the current file
+          leave_dirs_open = true, -- keeps parent directories open when following the current file
         },
         filtered_items = {
           hide_dotfiles = false, -- shows dotfiles
@@ -30,5 +31,19 @@ return {
         },
       },
     },
+    config = function(_, opts)
+      require("neo-tree").setup(opts)
+
+      -- Always open Neo-tree in float mode and reveal current file
+      vim.keymap.set("n", "<leader>e", function()
+        require("neo-tree.command").execute({
+          source = "filesystem",
+          toggle = true,
+          position = "float",
+          reveal = true,
+          reveal_force_cwd = true,
+        })
+      end, { desc = "NeoTree float reveal current file" })
+    end,
   },
 }
